@@ -40,9 +40,54 @@ namespace ApbdTest2.Services
             return true;
         }
 
-        public Task<bool> UpdateActionEndTime(int actionId)
+        public async Task<bool> UpdateActionEndTime(int actionId, DateTime endTime)
         {
-            throw new NotImplementedException();
+            var updateEndTime = new Models.Action
+            {
+                IdAction = actionId,
+                EndTime = endTime
+            };
+
+            _context.Actions.Attach(updateEndTime);
+            _context.Entry(updateEndTime).State = EntityState.Modified;
+            _context.SaveChanges();
+
+            return true;
+        }
+
+        public async Task<bool> checkIfActionExists(int actionId)
+        {
+            var checkIfActionExists = await _context.Actions
+                                        .AnyAsync(x => x.IdAction == actionId);
+
+            if (checkIfActionExists == false)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public async Task<bool> checkIfEndTimeValid(DateTime endTime)
+        {
+            var checkIfEndTimeValid = await _context.Actions
+                                            .AnyAsync(x => x.StartTime <= endTime);
+
+            if (checkIfEndTimeValid == false)
+            {
+                return false;
+            }
+            return true;
+        }
+        public async Task<bool> checkIfEndTimeExists(DateTime endTime)
+        {
+            var checkIfEndTimeExists = await _context.Actions
+                                                .AnyAsync(x => x.EndTime == null);
+
+            if (checkIfEndTimeExists == false)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

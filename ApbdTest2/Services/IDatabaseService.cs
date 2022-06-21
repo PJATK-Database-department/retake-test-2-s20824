@@ -10,6 +10,9 @@ namespace ApbdTest2.Services
     {
         Task<ICollection<FireTruck>> GetFireTrucksAsync(int fireTruckId);
         Task<bool> CheckIfFireTruckExists(int fireTruckId);
-        Task<bool> UpdateActionEndTime(int actionId);
+        Task<bool> UpdateActionEndTime(int actionId, DateTime endTime);
+        Task<bool> checkIfActionExists(int actionId);
+        Task<bool> checkIfEndTimeValid(DateTime endTime);
+        Task<bool> checkIfEndTimeExists(DateTime endTime);
     }
 }

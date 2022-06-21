@@ -29,5 +29,23 @@ namespace ApbdTest2.Controllers
 
             return Ok(fireTrucks);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateActionendDate(int actionId, DateTime endTime)
+        {
+            if (await _service.checkIfActionExists(actionId))
+            {
+                return BadRequest("No action with given id exists");
+            }
+            if (await _service.checkIfEndTimeValid(endTime))
+            {
+                return BadRequest("End time cannot be biiger than the start time");
+            }
+            if (await _service.checkIfEndTimeExists(endTime))
+            {
+                return BadRequest("End time is already set");
+            }
+            return StatusCode(201, actionId);
+        }
     }
 }
