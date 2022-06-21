@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ApbdTest2.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/firetrucks")]
     [ApiController]
     public class FiretrucksController : ControllerBase
     {
